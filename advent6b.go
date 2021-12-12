@@ -26,13 +26,14 @@ func main() {
 	data := strings.Split(input, ",")
 
 	fishes := make([]int, 0, 1)
+	batchCreatedFish := make([][2]int, 0, 1)
 
 	for _, fish := range data {
 		value, _ := strconv.Atoi(fish)
 		fishes = append(fishes, value)
 	}
 
-	numberOfDays := 80
+	numberOfDays := 256
 	resetValue := 6
 	newFishDays := 8
 
@@ -46,10 +47,22 @@ func main() {
 				fishes[j] = resetValue
 			}
 		}
-		for j := 0; j < fishBorn; j++ {
-			fishes = append(fishes, newFishDays)
+		for j, batch := range batchCreatedFish {
+			batchCreatedFish[j][0] = batch[0] - 1
+			if batchCreatedFish[j][0] < 0 {
+				fishBorn += batchCreatedFish[j][1]
+				batchCreatedFish[j][0] = resetValue
+			}
 		}
+
+		batchCreatedFish = append(batchCreatedFish, [2]int{newFishDays, fishBorn})
 	}
 
-	fmt.Println(len(fishes))
+	totalFishes := len(fishes)
+
+	for _, batch := range batchCreatedFish {
+		totalFishes += batch[1]
+	}
+
+	fmt.Println(totalFishes)
 }

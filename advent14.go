@@ -28,11 +28,11 @@ func main() {
 	polymerTemplate := inputSections[0]
 	polymerInsertions := strings.Split(inputSections[1], "\n")
 
-	polymerInstertionMap := map[string]string{}
+	polymerInsertionMap := map[string]string{}
 
 	for _, line := range polymerInsertions {
 		insertion := strings.Split(line, " -> ")
-		polymerInstertionMap[insertion[0]] = insertion[1]
+		polymerInsertionMap[insertion[0]] = insertion[1]
 	}
 
 	// number of steps
@@ -40,7 +40,7 @@ func main() {
 		insertionList := map[int]string{}
 
 		for j := 0; j < len(polymerTemplate)-1; j++ {
-			letterToBeInserted := polymerInstertionMap[polymerTemplate[j:j+2]]
+			letterToBeInserted := polymerInsertionMap[polymerTemplate[j:j+2]]
 			insertionList[j+1] = letterToBeInserted
 		}
 
